@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>fake review detection</title>
+    <style>
+        table{
+            border-collapse:collapse;
+        }
+        th,
+        td{
+            border:1px solid black;
+            padding:5px;
+        }
+        </style>
+</head>
+<body>
+    <div class="page-container">
+        <h1>Genuine/Fake review of the product</h1>
+    </div>
+    <h1>results!!!</h1>
+    {{ dataframe|safe }}
+    <style>
+        body {
+    background-color: #8bf8d7; 
+    padding: 20px; 
+    text-align: center;
+  }
+
+  .page-container {
+    border: 1px solid #f61a1a; 
+    border-radius: 10px; 
+    background-color: #44b9ee; 
+    box-shadow: 0 0 10px rgba(59, 3, 118, 0.1); 
+    max-width: 1500px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    text-align: center;
+  }
+  </style>
+    
+    <!-- <table>
+        <tr>
+            <th>slno</th>
+            <th>cust_name</th>
+            <th>review_title</th>
+            <th>review_content</th>
+        </tr>
+        <?php foreach ($data as $row) : ?>
+        <tr>
+            <td><?php echo $row['slno']; ?></td>
+            <td><?php echo $row['cust_name']; ?></td>
+            <td><?php echo $row['review_title']; ?></td>
+            <td><?php echo $row['review_content']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table> -->
+</body>
+</html>
