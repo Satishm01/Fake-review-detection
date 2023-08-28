@@ -26,6 +26,8 @@ def wordopt(text):
   text = re.sub('[%s]' % re.escape(string.punctuation), '', text) #removing punctuation
   text = re.sub('\n', '', text) #Removing the next line
   text = re.sub('\w*\d\w*', '', text)
+
+  
   return text
 
 

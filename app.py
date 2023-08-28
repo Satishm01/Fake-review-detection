@@ -13,16 +13,7 @@ app.secret_key = "your_secret_key_here"
 
 vectorizer, model = joblib.load("vectorizer_model.joblib")
 
-# def wordopt(text):
-#   text = text.lower()
-#   text = re.sub('\[.*?\]', '', text)
-#   text = re.sub("\\W"," ",text)
-#   text = re.sub('https?://\S+|www\.\S+', '', text)
-#   text = re.sub('<.*?>+', '', text)
-#   text = re.sub('[%s]' % re.escape(string.punctuation), '', text)
-#   text = re.sub('\n', '', text)
-#   text = re.sub('\w*\d\w*', '', text)
-#   return text
+
 
 
 import re
@@ -59,9 +50,13 @@ def wordopt(text):
 
 def output_label(n):
     if n == 'CG' :
-        return "Computer generated"
+        return "Fake"
+        #return "Computer generated"
+
     elif n == 'OR' :
-        return "Original review"
+        return "Genuine"
+        #return "Original review"
+
     
 
 def testing(review, vectorizer, model):
@@ -91,9 +86,27 @@ def display_dataframe():
     cust_names = []
     review_title = []
     review_content = []
+    buyer_details=[]
 
     url =request.form['url_input']
     url=url+str("&page=1")
+
+    page=requests.get(url)
+    soup=bs(page.content,'html.parser')
+
+
+    img_tag=soup.find('img',class_='_396cs4')
+
+    if img_tag:
+        src_url=img_tag['src']
+        print(src_url)
+        anchor_tag=soup.find('a','s1Q9rs _2qfgz2')
+        teext=anchor_tag.get_text();
+        
+    else:
+        img_tag=soup.find('img',class_='_2r_T1I')
+        src_url=img_tag['src']
+        #print("image not found")
 
     for x in range(1, 10):
         conc_str = str(x)
@@ -113,10 +126,16 @@ def display_dataframe():
         for i in range(0, len(review)):
             review_content.append(review[i].get_text())
 
+
+        date=soup.find_all("p",class_="_2mcZGG")
+        for i in range(0,len(date)):
+            buyer_details.append(date[i].get_text())
+
     df = pd.DataFrame()
     df['cust_names'] = cust_names
     df['review_title'] = review_title
     df['review_content'] = review_content
+    df['buyer_details']=buyer_details
 
     df['prediction'] = None
     for index, row in df.iterrows():
@@ -132,7 +151,7 @@ def display_dataframe():
     df.index+=1;
 
 
-    return render_template('vaishnavi2.html', dataframe=df.to_html())    
+    return render_template('vaishnavi2.html',dynamic_image_url=src_url,product_title=teext,dataframe=df.to_html())    
 
 
 
