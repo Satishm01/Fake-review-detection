@@ -73,7 +73,7 @@ def testing(review, vectorizer, model):
 @app.route("/")
 def home():
     flash("stranger things")
-    return render_template("vaishnavi.html")
+    return render_template("index.html")
 
 
 
@@ -151,7 +151,7 @@ def display_dataframe():
     df.index+=1;
 
 
-    return render_template('vaishnavi2.html',dynamic_image_url=src_url,product_title=teext,dataframe=df.to_html())    
+    return render_template('index2.html',dynamic_image_url=src_url,product_title=teext,dataframe=df.to_html())    
 
 
 
